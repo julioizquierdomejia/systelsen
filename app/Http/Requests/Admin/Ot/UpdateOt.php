@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Admin\Client;
+namespace App\Http\Requests\Admin\Ot;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
 
-class UpdateClient extends FormRequest
+class UpdateOt extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -15,7 +15,7 @@ class UpdateClient extends FormRequest
      */
     public function authorize(): bool
     {
-        return Gate::allows('admin.client.edit', $this->client);
+        return Gate::allows('admin.ot.edit', $this->ot);
     }
 
     /**
@@ -26,13 +26,11 @@ class UpdateClient extends FormRequest
     public function rules(): array
     {
         return [
-            'ruc' => ['sometimes', 'digits:11'],
-            'name' => ['sometimes', 'string'],
-            'address' => ['sometimes', 'string'],
-            'company_phone' => ['sometimes', 'string'],
-            'contact' => ['sometimes', 'string'],
-            'contact_phone' => ['sometimes', 'string'],
-            'contact_email' => ['sometimes', 'string'],
+            'client_id' => ['sometimes', 'string'],
+            'date' => ['sometimes', 'date'],
+            'seller' => ['sometimes', 'string'],
+            'motor_id' => ['sometimes', 'string'],
+            'status' => ['sometimes', 'boolean'],
             
         ];
     }
@@ -50,5 +48,16 @@ class UpdateClient extends FormRequest
         //Add your code for manipulation with request data here
 
         return $sanitized;
+    }
+
+    public function getModifiedData()
+    {
+        $data = $this->only(collect($this->rules())->keys()->all());
+        if (is_array($data["client_id"]))
+            $data["client_id"] = $data["client_id"]["id"];
+        if (is_array($data["motor_id"]))
+            $data["motor_id"] = $data["motor_id"]["id"];
+
+        return $data;
     }
 }

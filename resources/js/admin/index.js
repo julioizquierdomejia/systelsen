@@ -6,3 +6,4 @@ import './m-model';
 import './m-brand';
 import './motor';
 import './status';
+import './ot';

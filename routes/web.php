@@ -118,3 +118,18 @@ Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->gro
         });
     });
 });
+
+/* Auto-generated admin routes */
+Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->group(static function () {
+    Route::prefix('admin')->namespace('Admin')->name('admin/')->group(static function() {
+        Route::prefix('ots')->name('ots/')->group(static function() {
+            Route::get('/',                                             'OtController@index')->name('index');
+            Route::get('/create',                                       'OtController@create')->name('create');
+            Route::post('/',                                            'OtController@store')->name('store');
+            Route::get('/{ot}/edit',                                    'OtController@edit')->name('edit');
+            Route::post('/bulk-destroy',                                'OtController@bulkDestroy')->name('bulk-destroy');
+            Route::post('/{ots}',                                        'OtController@update')->name('update');
+            Route::delete('/{ots}',                                      'OtController@destroy')->name('destroy');
+        });
+    });
+});

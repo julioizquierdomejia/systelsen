@@ -130,5 +130,25 @@ return [
         ],
     ],
 
+    'ot' => [
+        'title' => 'OT',
+
+        'actions' => [
+            'index' => 'OT',
+            'create' => 'New Ot',
+            'edit' => 'Edit :name',
+        ],
+
+        'columns' => [
+            'id' => 'ID',
+            'client_id' => 'Client ID',
+            'date' => 'Date',
+            'seller' => 'Seller',
+            'motor_id' => 'Motor ID',
+            'status' => 'Status',
+            
+        ],
+    ],
+
     // Do not delete me :) I'm used for auto-generation
 ];

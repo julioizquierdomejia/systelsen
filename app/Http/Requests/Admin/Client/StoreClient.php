@@ -26,7 +26,7 @@ class StoreClient extends FormRequest
     public function rules(): array
     {
         return [
-            'ruc' => ['required', 'string'],
+            'ruc' => ['required', 'digits:11'],
             'name' => ['required', 'string'],
             'address' => ['required', 'string'],
             'company_phone' => ['required', 'string'],
