@@ -37,10 +37,10 @@ class MModelsController extends Controller
             $request,
 
             // set columns to query
-            ['name', 'description', 'enabled'],
+            ['name', 'description', 'status'],
 
             // set columns to searchIn
-            ['name', 'description', 'enabled']
+            ['name', 'description', 'status']
         );
 
         if ($request->ajax()) {

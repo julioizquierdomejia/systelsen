@@ -7,7 +7,7 @@ Vue.component('m-model-form', {
             form: {
                 name: '',
                 description: '',
-                enabled: true,
+                status: true,
             }
         }
     }

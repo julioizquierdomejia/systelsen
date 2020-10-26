@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\MBrand\BulkDestroyMBrand;
-use App\Http\Requests\Admin\MBrand\DestroyMBrand;
-use App\Http\Requests\Admin\MBrand\IndexMBrand;
-use App\Http\Requests\Admin\MBrand\StoreMBrand;
-use App\Http\Requests\Admin\MBrand\UpdateMBrand;
-use App\Models\MBrand;
+use App\Http\Requests\Admin\Motor\BulkDestroyMotor;
+use App\Http\Requests\Admin\Motor\DestroyMotor;
+use App\Http\Requests\Admin\Motor\IndexMotor;
+use App\Http\Requests\Admin\Motor\StoreMotor;
+use App\Http\Requests\Admin\Motor\UpdateMotor;
+use App\Models\Motor;
 use Brackets\AdminListing\Facades\AdminListing;
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -20,27 +20,27 @@ use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
-class MBrandsController extends Controller
+class MotorsController extends Controller
 {
 
     /**
      * Display a listing of the resource.
      *
-     * @param IndexMBrand $request
+     * @param IndexMotor $request
      * @return array|Factory|View
      */
-    public function index(IndexMBrand $request)
+    public function index(IndexMotor $request)
     {
         // create and AdminListing instance for a specific model and
-        $data = AdminListing::create(MBrand::class)->processRequestAndGet(
+        $data = AdminListing::create(Motor::class)->processRequestAndGet(
             // pass the request with params
             $request,
 
             // set columns to query
-            ['id', 'name', 'status'],
+            ['id', 'code', 'brand_id', 'model_id', 'power_number', 'power_measurement', 'volt', 'speed', 'status'],
 
             // set columns to searchIn
-            ['id', 'name', 'description']
+            ['id', 'description', 'code', 'power_number', 'power_measurement', 'volt', 'speed']
         );
 
         if ($request->ajax()) {
@@ -52,7 +52,7 @@ class MBrandsController extends Controller
             return ['data' => $data];
         }
 
-        return view('admin.m-brand.index', ['data' => $data]);
+        return view('admin.motor.index', ['data' => $data]);
     }
 
     /**
@@ -63,42 +63,42 @@ class MBrandsController extends Controller
      */
     public function create()
     {
-        $this->authorize('admin.m-brand.create');
+        $this->authorize('admin.motor.create');
 
-        return view('admin.m-brand.create');
+        return view('admin.motor.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param StoreMBrand $request
+     * @param StoreMotor $request
      * @return array|RedirectResponse|Redirector
      */
-    public function store(StoreMBrand $request)
+    public function store(StoreMotor $request)
     {
         // Sanitize input
         $sanitized = $request->getSanitized();
 
-        // Store the MBrand
-        $mBrand = MBrand::create($sanitized);
+        // Store the Motor
+        $motor = Motor::create($sanitized);
 
         if ($request->ajax()) {
-            return ['redirect' => url('admin/m-brands'), 'message' => trans('brackets/admin-ui::admin.operation.succeeded')];
+            return ['redirect' => url('admin/motors'), 'message' => trans('brackets/admin-ui::admin.operation.succeeded')];
         }
 
-        return redirect('admin/m-brands');
+        return redirect('admin/motors');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param MBrand $mBrand
+     * @param Motor $motor
      * @throws AuthorizationException
      * @return void
      */
-    public function show(MBrand $mBrand)
+    public function show(Motor $motor)
     {
-        $this->authorize('admin.m-brand.show', $mBrand);
+        $this->authorize('admin.motor.show', $motor);
 
         // TODO your code goes here
     }
@@ -106,56 +106,56 @@ class MBrandsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param MBrand $mBrand
+     * @param Motor $motor
      * @throws AuthorizationException
      * @return Factory|View
      */
-    public function edit(MBrand $mBrand)
+    public function edit(Motor $motor)
     {
-        $this->authorize('admin.m-brand.edit', $mBrand);
+        $this->authorize('admin.motor.edit', $motor);
 
 
-        return view('admin.m-brand.edit', [
-            'mBrand' => $mBrand,
+        return view('admin.motor.edit', [
+            'motor' => $motor,
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param UpdateMBrand $request
-     * @param MBrand $mBrand
+     * @param UpdateMotor $request
+     * @param Motor $motor
      * @return array|RedirectResponse|Redirector
      */
-    public function update(UpdateMBrand $request, MBrand $mBrand)
+    public function update(UpdateMotor $request, Motor $motor)
     {
         // Sanitize input
         $sanitized = $request->getSanitized();
 
-        // Update changed values MBrand
-        $mBrand->update($sanitized);
+        // Update changed values Motor
+        $motor->update($sanitized);
 
         if ($request->ajax()) {
             return [
-                'redirect' => url('admin/m-brands'),
+                'redirect' => url('admin/motors'),
                 'message' => trans('brackets/admin-ui::admin.operation.succeeded'),
             ];
         }
 
-        return redirect('admin/m-brands');
+        return redirect('admin/motors');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param DestroyMBrand $request
-     * @param MBrand $mBrand
+     * @param DestroyMotor $request
+     * @param Motor $motor
      * @throws Exception
      * @return ResponseFactory|RedirectResponse|Response
      */
-    public function destroy(DestroyMBrand $request, MBrand $mBrand)
+    public function destroy(DestroyMotor $request, Motor $motor)
     {
-        $mBrand->delete();
+        $motor->delete();
 
         if ($request->ajax()) {
             return response(['message' => trans('brackets/admin-ui::admin.operation.succeeded')]);
@@ -167,17 +167,17 @@ class MBrandsController extends Controller
     /**
      * Remove the specified resources from storage.
      *
-     * @param BulkDestroyMBrand $request
+     * @param BulkDestroyMotor $request
      * @throws Exception
      * @return Response|bool
      */
-    public function bulkDestroy(BulkDestroyMBrand $request) : Response
+    public function bulkDestroy(BulkDestroyMotor $request) : Response
     {
         DB::transaction(static function () use ($request) {
             collect($request->data['ids'])
                 ->chunk(1000)
                 ->each(static function ($bulkChunk) {
-                    MBrand::whereIn('id', $bulkChunk)->delete();
+                    Motor::whereIn('id', $bulkChunk)->delete();
 
                     // TODO your code goes here
                 });

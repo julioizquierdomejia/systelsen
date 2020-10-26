@@ -88,3 +88,18 @@ Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->gro
         });
     });
 });
+
+/* Auto-generated admin routes */
+Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->group(static function () {
+    Route::prefix('admin')->namespace('Admin')->name('admin/')->group(static function() {
+        Route::prefix('motors')->name('motors/')->group(static function() {
+            Route::get('/',                                             'MotorsController@index')->name('index');
+            Route::get('/create',                                       'MotorsController@create')->name('create');
+            Route::post('/',                                            'MotorsController@store')->name('store');
+            Route::get('/{motor}/edit',                                 'MotorsController@edit')->name('edit');
+            Route::post('/bulk-destroy',                                'MotorsController@bulkDestroy')->name('bulk-destroy');
+            Route::post('/{motor}',                                     'MotorsController@update')->name('update');
+            Route::delete('/{motor}',                                   'MotorsController@destroy')->name('destroy');
+        });
+    });
+});

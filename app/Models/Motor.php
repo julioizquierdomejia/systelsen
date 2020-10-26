@@ -4,20 +4,27 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class MModel extends Model
+class Motor extends Model
 {
     protected $fillable = [
-        'name',
         'description',
+        'code',
+        'brand_id',
+        'model_id',
+        'power_number',
+        'power_measurement',
+        'volt',
+        'speed',
         'status',
+    
     ];
     
     
     protected $dates = [
         'created_at',
         'updated_at',
+    
     ];
-    public $timestamps = false;
     
     protected $appends = ['resource_url'];
 
@@ -25,6 +32,6 @@ class MModel extends Model
 
     public function getResourceUrlAttribute()
     {
-        return url('/admin/m-models/'.$this->getKey());
+        return url('/admin/motors/'.$this->getKey());
     }
 }

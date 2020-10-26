@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Admin\MBrand;
+namespace App\Http\Requests\Admin\Motor;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
 
-class IndexMBrand extends FormRequest
+class BulkDestroyMotor extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +14,7 @@ class IndexMBrand extends FormRequest
      */
     public function authorize(): bool
     {
-        return Gate::allows('admin.m-brand.index');
+        return Gate::allows('admin.motor.bulk-delete');
     }
 
     /**
@@ -25,12 +25,7 @@ class IndexMBrand extends FormRequest
     public function rules(): array
     {
         return [
-            'orderBy' => 'in:id,name,status|nullable',
-            'orderDirection' => 'in:asc,desc|nullable',
-            'search' => 'string|nullable',
-            'page' => 'integer|nullable',
-            'per_page' => 'integer|nullable',
-
+            'ids.*' => 'integer'
         ];
     }
 }

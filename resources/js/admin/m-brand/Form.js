@@ -7,7 +7,7 @@ Vue.component('m-brand-form', {
             form: {
                 name:  '' ,
                 description:  '' ,
-                enabled:  true ,
+                status:  true ,
                 
             }
         }

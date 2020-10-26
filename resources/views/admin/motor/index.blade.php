@@ -1,20 +1,20 @@
 @extends('brackets/admin-ui::admin.layout.default')
 
-@section('title', trans('admin.m-brand.actions.index'))
+@section('title', trans('admin.motor.actions.index'))
 
 @section('body')
 
-    <m-brand-listing
+    <motor-listing
         :data="{{ $data->toJson() }}"
-        :url="'{{ url('admin/m-brands') }}'"
+        :url="'{{ url('admin/motors') }}'"
         inline-template>
 
         <div class="row">
             <div class="col">
                 <div class="card">
                     <div class="card-header">
-                        <i class="fa fa-align-justify"></i> {{ trans('admin.m-brand.actions.index') }}
-                        <a class="btn btn-primary btn-spinner btn-sm pull-right m-b-0" href="{{ url('admin/m-brands/create') }}" role="button"><i class="fa fa-plus"></i>&nbsp; {{ trans('admin.m-brand.actions.create') }}</a>
+                        <i class="fa fa-align-justify"></i> {{ trans('admin.motor.actions.index') }}
+                        <a class="btn btn-primary btn-spinner btn-sm pull-right m-b-0" href="{{ url('admin/motors/create') }}" role="button"><i class="fa fa-plus"></i>&nbsp; {{ trans('admin.motor.actions.create') }}</a>
                     </div>
                     <div class="card-body" v-cloak>
                         <div class="card-block">
@@ -49,19 +49,25 @@
                                             </label>
                                         </th>
 
-                                        <th is='sortable' :column="'id'">{{ trans('admin.m-brand.columns.id') }}</th>
-                                        <th is='sortable' :column="'name'">{{ trans('admin.m-brand.columns.name') }}</th>
-                                        <th is='sortable' :column="'status'">{{ trans('admin.m-brand.columns.status') }}</th>
+                                        <th is='sortable' :column="'id'">{{ trans('admin.motor.columns.id') }}</th>
+                                        <th is='sortable' :column="'code'">{{ trans('admin.motor.columns.code') }}</th>
+                                        <th is='sortable' :column="'brand_id'">{{ trans('admin.motor.columns.brand_id') }}</th>
+                                        <th is='sortable' :column="'model_id'">{{ trans('admin.motor.columns.model_id') }}</th>
+                                        <th is='sortable' :column="'power_number'">{{ trans('admin.motor.columns.power_number') }}</th>
+                                        <th is='sortable' :column="'power_measurement'">{{ trans('admin.motor.columns.power_measurement') }}</th>
+                                        <th is='sortable' :column="'volt'">{{ trans('admin.motor.columns.volt') }}</th>
+                                        <th is='sortable' :column="'speed'">{{ trans('admin.motor.columns.speed') }}</th>
+                                        <th is='sortable' :column="'status'">{{ trans('admin.motor.columns.status') }}</th>
 
                                         <th></th>
                                     </tr>
                                     <tr v-show="(clickedBulkItemsCount > 0) || isClickedAll">
-                                        <td class="bg-bulk-info d-table-cell text-center" colspan="5">
-                                            <span class="align-middle font-weight-light text-dark">{{ trans('brackets/admin-ui::admin.listing.selected_items') }} @{{ clickedBulkItemsCount }}.  <a href="#" class="text-primary" @click="onBulkItemsClickedAll('/admin/m-brands')" v-if="(clickedBulkItemsCount < pagination.state.total)"> <i class="fa" :class="bulkCheckingAllLoader ? 'fa-spinner' : ''"></i> {{ trans('brackets/admin-ui::admin.listing.check_all_items') }} @{{ pagination.state.total }}</a> <span class="text-primary">|</span> <a
+                                        <td class="bg-bulk-info d-table-cell text-center" colspan="11">
+                                            <span class="align-middle font-weight-light text-dark">{{ trans('brackets/admin-ui::admin.listing.selected_items') }} @{{ clickedBulkItemsCount }}.  <a href="#" class="text-primary" @click="onBulkItemsClickedAll('/admin/motors')" v-if="(clickedBulkItemsCount < pagination.state.total)"> <i class="fa" :class="bulkCheckingAllLoader ? 'fa-spinner' : ''"></i> {{ trans('brackets/admin-ui::admin.listing.check_all_items') }} @{{ pagination.state.total }}</a> <span class="text-primary">|</span> <a
                                                         href="#" class="text-primary" @click="onBulkItemsClickedAllUncheck()">{{ trans('brackets/admin-ui::admin.listing.uncheck_all_items') }}</a>  </span>
 
                                             <span class="pull-right pr-2">
-                                                <button class="btn btn-sm btn-danger pr-3 pl-3" @click="bulkDelete('/admin/m-brands/bulk-destroy')">{{ trans('brackets/admin-ui::admin.btn.delete') }}</button>
+                                                <button class="btn btn-sm btn-danger pr-3 pl-3" @click="bulkDelete('/admin/motors/bulk-destroy')">{{ trans('brackets/admin-ui::admin.btn.delete') }}</button>
                                             </span>
 
                                         </td>
@@ -76,14 +82,14 @@
                                         </td>
 
                                     <td>@{{ item.id }}</td>
-                                        <td>@{{ item.name }}</td>
-                                        <td>
-                                            <label class="switch switch-3d switch-success">
-                                                <input type="checkbox" class="switch-input" v-model="collection[index].status" @change="toggleSwitch(item.resource_url, 'status', collection[index])">
-                                                <span class="switch-slider"></span>
-                                            </label>
-                                        </td>
-
+                                        <td>@{{ item.code }}</td>
+                                        <td>@{{ item.brand_id }}</td>
+                                        <td>@{{ item.model_id }}</td>
+                                        <td>@{{ item.power_number }}</td>
+                                        <td>@{{ item.power_measurement }}</td>
+                                        <td>@{{ item.volt }}</td>
+                                        <td>@{{ item.speed }}</td>
+                                        <td>@{{ item.status }}</td>
                                         
                                         <td>
                                             <div class="row no-gutters">
@@ -112,13 +118,13 @@
                                 <i class="icon-magnifier"></i>
                                 <h3>{{ trans('brackets/admin-ui::admin.index.no_items') }}</h3>
                                 <p>{{ trans('brackets/admin-ui::admin.index.try_changing_items') }}</p>
-                                <a class="btn btn-primary btn-spinner" href="{{ url('admin/m-brands/create') }}" role="button"><i class="fa fa-plus"></i>&nbsp; {{ trans('admin.m-brand.actions.create') }}</a>
+                                <a class="btn btn-primary btn-spinner" href="{{ url('admin/motors/create') }}" role="button"><i class="fa fa-plus"></i>&nbsp; {{ trans('admin.motor.actions.create') }}</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </m-brand-listing>
+    </motor-listing>
 
 @endsection

@@ -9,7 +9,7 @@ class MBrand extends Model
     protected $fillable = [
         'name',
         'description',
-        'enabled',
+        'status',
     
     ];
     

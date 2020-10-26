@@ -65,7 +65,7 @@ return [
             'id' => 'ID',
             'name' => 'Name',
             'description' => 'Description',
-            'enabled' => 'Enabled',
+            'status' => 'Status',
             
         ],
     ],
@@ -83,7 +83,31 @@ return [
             'id' => 'ID',
             'name' => 'Name',
             'description' => 'Description',
-            'enabled' => 'Enabled',
+            'status' => 'Status',
+            
+        ],
+    ],
+
+    'motor' => [
+        'title' => 'Motors',
+
+        'actions' => [
+            'index' => 'Motors',
+            'create' => 'New Motor',
+            'edit' => 'Edit :name',
+        ],
+
+        'columns' => [
+            'id' => 'ID',
+            'description' => 'Description',
+            'code' => 'Code',
+            'brand_id' => 'Brand',
+            'model_id' => 'Model',
+            'power_number' => 'Power Number',
+            'power_measurement' => 'Power Measurement',
+            'volt' => 'Volt',
+            'speed' => 'Speed',
+            'status' => 'Status',
             
         ],
     ],

@@ -51,7 +51,7 @@
                                         <th is='sortable' :column="'id'">{{ trans('admin.m-model.columns.id') }}</th>
                                         <th is='sortable' :column="'name'">{{ trans('admin.m-model.columns.name') }}</th>
                                         <th is='sortable' :column="'description'">{{ trans('admin.m-model.columns.description') }}</th>
-                                        <th is='sortable' :column="'enabled'">{{ trans('admin.m-model.columns.enabled') }}</th>
+                                        <th is='sortable' :column="'status'">{{ trans('admin.m-model.columns.status') }}</th>
 
                                         <th></th>
                                     </tr>
@@ -80,7 +80,7 @@
                                         <td v-html="item.description"></td>
                                         <td>
                                             <label class="switch switch-3d switch-success">
-                                                <input type="checkbox" class="switch-input" v-model="collection[index].enabled" @change="toggleSwitch(item.resource_url, 'enabled', collection[index])">
+                                                <input type="checkbox" class="switch-input" v-model="collection[index].status" @change="toggleSwitch(item.resource_url, 'status', collection[index])">
                                                 <span class="switch-slider"></span>
                                             </label>
                                         </td>

@@ -17,7 +17,7 @@ class CreateMModelsTable extends Migration
             $table->id();
             $table->string('name');
             $table->text('description');
-            $table->boolean('enabled')->default(true);
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

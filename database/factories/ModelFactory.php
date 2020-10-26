@@ -52,3 +52,21 @@ $factory->define(App\Models\MBrand::class, static function (Faker\Generator $fak
         
     ];
 });
+/** @var  \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(App\Models\Motor::class, static function (Faker\Generator $faker) {
+    return [
+        'description' => $faker->text(),
+        'code' => $faker->sentence,
+        'brand_id' => $faker->sentence,
+        'model_id' => $faker->sentence,
+        'power_number' => $faker->sentence,
+        'power_measurement' => $faker->sentence,
+        'volt' => $faker->sentence,
+        'speed' => $faker->sentence,
+        'status' => $faker->boolean(),
+        'created_at' => $faker->dateTime,
+        'updated_at' => $faker->dateTime,
+        
+        
+    ];
+});
