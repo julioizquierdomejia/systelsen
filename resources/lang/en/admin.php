@@ -112,5 +112,23 @@ return [
         ],
     ],
 
+    'status' => [
+        'title' => 'Status',
+
+        'actions' => [
+            'index' => 'Status',
+            'create' => 'New Status',
+            'edit' => 'Edit :name',
+        ],
+
+        'columns' => [
+            'id' => 'ID',
+            'name' => 'Name',
+            'description' => 'Description',
+            'status' => 'Status',
+            
+        ],
+    ],
+
     // Do not delete me :) I'm used for auto-generation
 ];

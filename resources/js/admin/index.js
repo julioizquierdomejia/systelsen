@@ -5,3 +5,4 @@ import './client';
 import './m-model';
 import './m-brand';
 import './motor';
+import './status';
