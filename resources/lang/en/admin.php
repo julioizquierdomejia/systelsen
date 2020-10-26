@@ -30,5 +30,27 @@ return [
         ],
     ],
 
+    'client' => [
+        'title' => 'Clients',
+
+        'actions' => [
+            'index' => 'Clients',
+            'create' => 'New Client',
+            'edit' => 'Edit :name',
+        ],
+
+        'columns' => [
+            'id' => 'ID',
+            'ruc' => 'Ruc',
+            'name' => 'Name',
+            'address' => 'Address',
+            'company_phone' => 'Company phone',
+            'contact' => 'Contact',
+            'contact_phone' => 'Contact phone',
+            'contact_email' => 'Contact email',
+            
+        ],
+    ],
+
     // Do not delete me :) I'm used for auto-generation
 ];
