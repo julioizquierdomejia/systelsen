@@ -13,7 +13,7 @@ Vue.component('motor-form', {
                 power_measurement:  '' ,
                 volt:  '' ,
                 speed:  '' ,
-                status:  false ,
+                status:  true ,
                 
             }
         }

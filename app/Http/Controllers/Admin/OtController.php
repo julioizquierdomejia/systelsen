@@ -11,6 +11,8 @@ use App\Http\Requests\Admin\Ot\UpdateOt;
 use App\Models\Ot;
 use App\Models\Client;
 use App\Models\Motor;
+use App\Models\MBrand;
+use App\Models\MModel;
 use Brackets\AdminListing\Facades\AdminListing;
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -39,13 +41,17 @@ class OtController extends Controller
             $request,
 
             // set columns to query
-            ['id', 'client_id', 'date', 'seller', 'motor_id', 'status'],
+            ['id', 'client_id', 'date', 'seller', 'motor_id', 'status'/*, 'motors.code as m_code'*/],
 
             // set columns to searchIn
-            ['id', 'seller']
+            ['id', 'seller'],
+
+            /*function ($query) use ($request) {
+                $query->join('motors', 'ots.motor_id', '=', 'motors.id');
+            }*/
         );
         $clients = Client::all();
-        $motors = Motor::all();
+        //$motors = Motor::all();
 
         if ($request->ajax()) {
             if ($request->has('bulk')) {
@@ -60,7 +66,7 @@ class OtController extends Controller
         return view('admin.ot.index', [
             'data' => $data,
             'clients' => $clients,
-            'motors' => $motors,
+            //'motors' => $motors,
         ]);
     }
 
@@ -76,7 +82,9 @@ class OtController extends Controller
 
         return view('admin.ot.create', [
             'clients' => Client::all(),
-            'motors' => Motor::all(),
+            //'motors' => Motor::all(),
+            'brands' => MBrand::all(),
+            'models' => MModel::all()
         ]);
     }
 
@@ -127,12 +135,18 @@ class OtController extends Controller
         $this->authorize('admin.ot.edit', $ot);
 
         $ot->load('client_id');
-        $ot->load('motor_id');
+        //$ot->load('motor_id');
+
+        //$motor = Motor::where('id', $ot->motor_id)->get();
+        $motor = Motor::with('ot')->find($ot->motor_id);
 
         return view('admin.ot.edit', [
             'ot' => $ot,
             'clients' => Client::all(),
-            'motors' => Motor::all()
+            //'motors' => Motor::all(),
+            'brands' => MBrand::all(),
+            'models' => MModel::all(),
+            'motor' => $motor
         ]);
     }
 

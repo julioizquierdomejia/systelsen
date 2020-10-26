@@ -29,9 +29,9 @@ class Ot extends Model
     {
         return $this->belongsTo('App\Models\Client', 'client_id');
     }
-    public function motor_id()
+    public function motor()
     {
-        return $this->belongsTo('App\Models\Motor', 'motor_id');
+        return $this->hasOne('App\Models\Motor', 'ot_id');
     }
 
     /* ************************ ACCESSOR ************************* */

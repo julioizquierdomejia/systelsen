@@ -37,6 +37,11 @@ class Motor extends Model
         return $this->belongsTo('App\Models\MModel', 'model_id');
     }
 
+    public function ot()
+    {
+        return $this->hasOne('App\Models\Ot', 'motor_id');
+    }
+
     /* ************************ ACCESSOR ************************* */
 
     public function getResourceUrlAttribute()

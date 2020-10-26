@@ -9,8 +9,17 @@ Vue.component('ot-form', {
                 date:  '' ,
                 seller:  '' ,
                 motor_id:  '' ,
-                status:  '' ,
-                
+                status:  true ,
+            },
+            motor: {
+                code: '',
+                description: '',
+                brand_id: '',
+                model_id: '',
+                power_number: '',
+                power_measurement: '',
+                volt: '',
+                speed: '',
             }
         }
     }

@@ -90,6 +90,7 @@ return [
 
     'motor' => [
         'title' => 'Motors',
+        'subtitle' => 'Motor',
 
         'actions' => [
             'index' => 'Motors',
