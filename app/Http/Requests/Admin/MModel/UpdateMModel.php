@@ -28,7 +28,7 @@ class UpdateMModel extends FormRequest
         return [
             'name' => ['sometimes', 'string'],
             'description' => ['sometimes', 'string'],
-            'enabled' => ['sometimes', 'boolean'],
+            'status' => ['sometimes', 'boolean'],
         ];
     }
 

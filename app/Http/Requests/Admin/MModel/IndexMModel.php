@@ -25,7 +25,7 @@ class IndexMModel extends FormRequest
     public function rules(): array
     {
         return [
-            'orderBy' => 'in:name,description,enabled|nullable',
+            'orderBy' => 'in:id,name,description,status|nullable',
             'orderDirection' => 'in:asc,desc|nullable',
             'search' => 'string|nullable',
             'page' => 'integer|nullable',

@@ -9,6 +9,8 @@ use App\Http\Requests\Admin\Motor\IndexMotor;
 use App\Http\Requests\Admin\Motor\StoreMotor;
 use App\Http\Requests\Admin\Motor\UpdateMotor;
 use App\Models\Motor;
+use App\Models\MBrand;
+use App\Models\MModel;
 use Brackets\AdminListing\Facades\AdminListing;
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -42,6 +44,8 @@ class MotorsController extends Controller
             // set columns to searchIn
             ['id', 'description', 'code', 'power_number', 'power_measurement', 'volt', 'speed']
         );
+        $brands = MBrand::all();
+        $models = MModel::all();
 
         if ($request->ajax()) {
             if ($request->has('bulk')) {
@@ -52,7 +56,11 @@ class MotorsController extends Controller
             return ['data' => $data];
         }
 
-        return view('admin.motor.index', ['data' => $data]);
+        return view('admin.motor.index', [
+            'data' => $data,
+            'brands' => $brands,
+            'models' => $models,
+        ]);
     }
 
     /**
@@ -65,7 +73,10 @@ class MotorsController extends Controller
     {
         $this->authorize('admin.motor.create');
 
-        return view('admin.motor.create');
+        return view('admin.motor.create', [
+            'brands' => MBrand::all(),
+            'models' => MModel::all()
+        ]);
     }
 
     /**
@@ -77,7 +88,7 @@ class MotorsController extends Controller
     public function store(StoreMotor $request)
     {
         // Sanitize input
-        $sanitized = $request->getSanitized();
+        $sanitized = $request->getModifiedData();
 
         // Store the Motor
         $motor = Motor::create($sanitized);
@@ -114,9 +125,13 @@ class MotorsController extends Controller
     {
         $this->authorize('admin.motor.edit', $motor);
 
+        $motor->load('brand_id');
+        $motor->load('model_id');
 
         return view('admin.motor.edit', [
             'motor' => $motor,
+            'brands' => MBrand::all(),
+            'models' => MModel::all()
         ]);
     }
 
@@ -130,7 +145,7 @@ class MotorsController extends Controller
     public function update(UpdateMotor $request, Motor $motor)
     {
         // Sanitize input
-        $sanitized = $request->getSanitized();
+        $sanitized = $request->getModifiedData();
 
         // Update changed values Motor
         $motor->update($sanitized);

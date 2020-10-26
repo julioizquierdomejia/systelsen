@@ -28,8 +28,8 @@ class StoreMotor extends FormRequest
         return [
             'description' => ['required', 'string'],
             'code' => ['required', 'string'],
-            'brand_id' => ['required', 'string'],
-            'model_id' => ['required', 'string'],
+            'brand_id' => ['required', 'array'],
+            'model_id' => ['required', 'array'],
             'power_number' => ['required', 'string'],
             'power_measurement' => ['required', 'string'],
             'volt' => ['required', 'string'],
@@ -51,5 +51,13 @@ class StoreMotor extends FormRequest
         //Add your code for manipulation with request data here
 
         return $sanitized;
+    }
+
+    public function getModifiedData()
+    {
+        $data = $this->only(collect($this->rules())->keys()->all());
+        $data["brand_id"] = $data["brand_id"]["id"];
+        $data["model_id"] = $data["model_id"]["id"];
+        return $data;
     }
 }

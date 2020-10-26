@@ -28,8 +28,8 @@ class UpdateMotor extends FormRequest
         return [
             'description' => ['sometimes', 'string'],
             'code' => ['sometimes', 'string'],
-            'brand_id' => ['sometimes', 'string'],
-            'model_id' => ['sometimes', 'string'],
+            'brand_id' => ['required'],
+            'model_id' => ['required'],
             'power_number' => ['sometimes', 'string'],
             'power_measurement' => ['sometimes', 'string'],
             'volt' => ['sometimes', 'string'],
@@ -52,5 +52,16 @@ class UpdateMotor extends FormRequest
         //Add your code for manipulation with request data here
 
         return $sanitized;
+    }
+
+    public function getModifiedData()
+    {
+        $data = $this->only(collect($this->rules())->keys()->all());
+        if (is_array($data["brand_id"]))
+            $data["brand_id"] = $data["brand_id"]["id"];
+        if (is_array($data["model_id"]))
+            $data["model_id"] = $data["model_id"]["id"];
+
+        return $data;
     }
 }

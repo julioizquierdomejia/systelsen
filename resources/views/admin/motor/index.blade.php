@@ -51,8 +51,8 @@
 
                                         <th is='sortable' :column="'id'">{{ trans('admin.motor.columns.id') }}</th>
                                         <th is='sortable' :column="'code'">{{ trans('admin.motor.columns.code') }}</th>
-                                        <th is='sortable' :column="'brand_id'">{{ trans('admin.motor.columns.brand_id') }}</th>
-                                        <th is='sortable' :column="'model_id'">{{ trans('admin.motor.columns.model_id') }}</th>
+                                        <!-- <th is='sortable' :column="'brand_id'">{{ trans('admin.motor.columns.brand_id') }}</th>
+                                        <th is='sortable' :column="'model_id'">{{ trans('admin.motor.columns.model_id') }}</th> -->
                                         <th is='sortable' :column="'power_number'">{{ trans('admin.motor.columns.power_number') }}</th>
                                         <th is='sortable' :column="'power_measurement'">{{ trans('admin.motor.columns.power_measurement') }}</th>
                                         <th is='sortable' :column="'volt'">{{ trans('admin.motor.columns.volt') }}</th>
@@ -83,13 +83,18 @@
 
                                     <td>@{{ item.id }}</td>
                                         <td>@{{ item.code }}</td>
-                                        <td>@{{ item.brand_id }}</td>
-                                        <td>@{{ item.model_id }}</td>
+                                        <!-- <td>@{{ item.brand_id }}</td>
+                                        <td>@{{ item.model_id }}</td> -->
                                         <td>@{{ item.power_number }}</td>
                                         <td>@{{ item.power_measurement }}</td>
                                         <td>@{{ item.volt }}</td>
                                         <td>@{{ item.speed }}</td>
-                                        <td>@{{ item.status }}</td>
+                                        <td>
+                                            <label class="switch switch-3d switch-success">
+                                                <input type="checkbox" class="switch-input" v-model="collection[index].status" @change="toggleSwitch(item.resource_url, 'status', collection[index])">
+                                                <span class="switch-slider"></span>
+                                            </label>
+                                        </td>
                                         
                                         <td>
                                             <div class="row no-gutters">

@@ -28,6 +28,15 @@ class Motor extends Model
     
     protected $appends = ['resource_url'];
 
+    public function brand_id()
+    {
+        return $this->belongsTo('App\Models\MBrand', 'brand_id');
+    }
+    public function model_id()
+    {
+        return $this->belongsTo('App\Models\MModel', 'model_id');
+    }
+
     /* ************************ ACCESSOR ************************* */
 
     public function getResourceUrlAttribute()

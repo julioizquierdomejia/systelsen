@@ -19,7 +19,8 @@
 <div class="form-group row align-items-center" :class="{'has-danger': errors.has('brand_id'), 'has-success': fields.brand_id && fields.brand_id.valid }">
     <label for="brand_id" class="col-form-label text-md-right" :class="isFormLocalized ? 'col-md-4' : 'col-md-2'">{{ trans('admin.motor.columns.brand_id') }}</label>
         <div :class="isFormLocalized ? 'col-md-4' : 'col-md-9 col-xl-8'">
-        <input type="text" v-model="form.brand_id" v-validate="'required'" @input="validate($event)" class="form-control" :class="{'form-control-danger': errors.has('brand_id'), 'form-control-success': fields.brand_id && fields.brand_id.valid}" id="brand_id" name="brand_id" placeholder="{{ trans('admin.motor.columns.brand_id') }}">
+        <!-- <input type="text" v-model="form.brand_id" v-validate="'required'" @input="validate($event)" class="form-control" :class="{'form-control-danger': errors.has('brand_id'), 'form-control-success': fields.brand_id && fields.brand_id.valid}" id="brand_id" name="brand_id" placeholder="{{ trans('admin.motor.columns.brand_id') }}"> -->
+        <multiselect v-model="form.brand_id" placeholder="{{ trans('brackets/admin-ui::admin.forms.select_options') }}" track-by="id" label="name" :options="{{ $brands->toJson() }}" :searchable="true" :allow-empty="false" open-direction="bottom"></multiselect>
         <div v-if="errors.has('brand_id')" class="form-control-feedback form-text" v-cloak>@{{ errors.first('brand_id') }}</div>
     </div>
 </div>
@@ -27,7 +28,8 @@
 <div class="form-group row align-items-center" :class="{'has-danger': errors.has('model_id'), 'has-success': fields.model_id && fields.model_id.valid }">
     <label for="model_id" class="col-form-label text-md-right" :class="isFormLocalized ? 'col-md-4' : 'col-md-2'">{{ trans('admin.motor.columns.model_id') }}</label>
         <div :class="isFormLocalized ? 'col-md-4' : 'col-md-9 col-xl-8'">
-        <input type="text" v-model="form.model_id" v-validate="'required'" @input="validate($event)" class="form-control" :class="{'form-control-danger': errors.has('model_id'), 'form-control-success': fields.model_id && fields.model_id.valid}" id="model_id" name="model_id" placeholder="{{ trans('admin.motor.columns.model_id') }}">
+        <!-- <input type="text" v-model="form.model_id" v-validate="'required'" @input="validate($event)" class="form-control" :class="{'form-control-danger': errors.has('model_id'), 'form-control-success': fields.model_id && fields.model_id.valid}" id="model_id" name="model_id" placeholder="{{ trans('admin.motor.columns.model_id') }}"> -->
+        <multiselect v-model="form.model_id" placeholder="{{ trans('brackets/admin-ui::admin.forms.select_options') }}" track-by="id" label="name" :options="{{ $models->toJson() }}" :searchable="true" :allow-empty="false" open-direction="bottom"></multiselect>
         <div v-if="errors.has('model_id')" class="form-control-feedback form-text" v-cloak>@{{ errors.first('model_id') }}</div>
     </div>
 </div>
