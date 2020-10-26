@@ -52,5 +52,23 @@ return [
         ],
     ],
 
+    'm-model' => [
+        'title' => 'M Models',
+
+        'actions' => [
+            'index' => 'M Models',
+            'create' => 'New M Model',
+            'edit' => 'Edit :name',
+        ],
+
+        'columns' => [
+            'id' => 'ID',
+            'name' => 'Name',
+            'description' => 'Description',
+            'enabled' => 'Enabled',
+            
+        ],
+    ],
+
     // Do not delete me :) I'm used for auto-generation
 ];
