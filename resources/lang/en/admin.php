@@ -53,11 +53,29 @@ return [
     ],
 
     'm-model' => [
-        'title' => 'M Models',
+        'title' => 'Models',
 
         'actions' => [
-            'index' => 'M Models',
-            'create' => 'New M Model',
+            'index' => 'Models',
+            'create' => 'New Model',
+            'edit' => 'Edit :name',
+        ],
+
+        'columns' => [
+            'id' => 'ID',
+            'name' => 'Name',
+            'description' => 'Description',
+            'enabled' => 'Enabled',
+            
+        ],
+    ],
+
+    'm-brand' => [
+        'title' => 'Brands',
+
+        'actions' => [
+            'index' => 'Brands',
+            'create' => 'New Brand',
             'edit' => 'Edit :name',
         ],
 

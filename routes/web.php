@@ -73,3 +73,18 @@ Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->gro
         });
     });
 });
+
+/* Auto-generated admin routes */
+Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->group(static function () {
+    Route::prefix('admin')->namespace('Admin')->name('admin/')->group(static function() {
+        Route::prefix('m-brands')->name('m-brands/')->group(static function() {
+            Route::get('/',                                             'MBrandsController@index')->name('index');
+            Route::get('/create',                                       'MBrandsController@create')->name('create');
+            Route::post('/',                                            'MBrandsController@store')->name('store');
+            Route::get('/{mBrand}/edit',                                'MBrandsController@edit')->name('edit');
+            Route::post('/bulk-destroy',                                'MBrandsController@bulkDestroy')->name('bulk-destroy');
+            Route::post('/{mBrand}',                                    'MBrandsController@update')->name('update');
+            Route::delete('/{mBrand}',                                  'MBrandsController@destroy')->name('destroy');
+        });
+    });
+});
